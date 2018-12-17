@@ -1,0 +1,14 @@
+{
+  "name": "aoserver",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./server/main.js",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "debug": "~2.6.9",
+    "mocha": "^5.2.0",
+    "supertest": "^3.3.0"
+  }
+}
