@@ -23,7 +23,20 @@ server.on('listening', () => {
 
 var game = new Array();
 
+var user_position = new Array();
 
+function sleep(millis) {
+    return new Promise(resolve => setTimeout(resolve, millis));
+}
+!function step(){
+    if(user_position.length == 0){
+        continue;
+    }
+    else{
+        user_position.shift().array.forEach(x=>{x.sender.Sender(result);});
+    }
+    sleep(1000/10);
+}()
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
     const so = message.SocketSend(s);
@@ -39,14 +52,13 @@ server.on('connection', (s) => {
                 if (json.id == 0) {
                     const jsondata = JSON.stringify(json);
                     so.Sender(jsondata);
+                
                 }
-
                 if (json.id == 1) {
                     var user = json.user_id;
                     var jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
                     var result = JSON.stringify({id:json.id ,msg: jsondata });
-
-                    game.filter(x=>(x.id!==cc)).forEach(x=>{x.sender.Sender(result);console.log(cc+" -> "+x.id);});
+                    user_position.push({data:result,array:game.filter(x=>(x.id!==cc))});
                 }
             } catch (error) {
                 console.log('입력 데이터가 json이 아닙니다.'+error);
