@@ -8,7 +8,7 @@ function Rsocket(socket, socket_id) {
         return socket.id == id;
     }
     return {
-        send:send,
+        Send:Send,
         socket:socket,
         id:id
     };
