@@ -11,7 +11,7 @@ let Game = match.createMatch();
 let userCount = 0;
 let gameCount = 0;
 server.listen({
-    host: 'localhost',
+    host: '198.14.36.114',
     port: 19182,
     exclusive: true
 });
