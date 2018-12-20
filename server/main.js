@@ -30,7 +30,6 @@ function sleep(millis) {
 }
 !function step(){
     if(user_position.length == 0){
-        continue;
     }
     else{
         user_position.shift().array.forEach(x=>{x.sender.Sender(result);});
