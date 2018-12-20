@@ -30,7 +30,6 @@ server.on('connection', (s) => {
     const so = message.SocketSend(s);
     game.push({sender:so,id:userCount});
     const cc = userCount;
-    userCount += 1;
     s.on('data', (data) => {
         const list = data.toString().split('#');
         console.log(list);
@@ -46,6 +45,9 @@ server.on('connection', (s) => {
             game.filter(x=>(x.id!==cc)).forEach(x=>x.sender.Sender(result));
         }
     });
+    s.on('error',()=>{
+        game = game.filter(x=x.id!==cc);
+    })
     
 
     Game = match.createMatch();
@@ -59,6 +61,7 @@ server.on('connection', (s) => {
         userCount = 0;
     }
     */
+    userCount += 1;
 });
 
 server.on('error', (e) => {
