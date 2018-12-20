@@ -32,9 +32,11 @@ server.on('connection', (s) => {
     const cc = userCount;
     s.on('data', (data) => {
         const list = data.toString().split('#');
-        console.log(list.length-1);
         for (let ii = 0; ii < list.length-1; ii++) {
+            
+            
             const json = list[ii];
+            console.log(json);
             try {
                 if (json.id == 0) {
                     const jsondata = JSON.stringify(json);
