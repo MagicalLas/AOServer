@@ -64,7 +64,7 @@ server.on('connection',(socket)=>{
         const list = data.toString().split('#');
         const one = JSON.parse(list[0]);
         if(one.id==0){
-            rsocket.send(one);
+            rsocket.Send(one);
         }
         if(one.id==1){
             const moving_data = process_moving_data(data);
