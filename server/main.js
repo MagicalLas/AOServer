@@ -21,8 +21,6 @@ server.on('listening', () => {
     console.log("Server will Started");
 });
 
-id, msg
-
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
     Game = Game(s);
