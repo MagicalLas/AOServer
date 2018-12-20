@@ -21,11 +21,25 @@ server.on('listening', () => {
     console.log("Server will Started");
 });
 
+var gamedata = {
+    game_id:game_id,
+    user1:{
+        name:"player1",
+        x:0,
+        y:0
+    },
+    user2:{
+        name:"player2",
+        x:0,
+        y:0
+    }
+};
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
     Game = Game(s);
     const so = message.SocketSend(s);
-    so.Sender('{name:"Las Wonho"}');
+    const data = JSON.stringify(gamedata);
+    so.Sender(data);
     userCount += 1;
     Game = match.createMatch();
     /*
