@@ -23,7 +23,9 @@ server.on('listening', () => {
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
     Game = Game(s);
+    s.write('Wonho Las');
     userCount += 1;
+    /*
     if (userCount == 2) {
         console.log('2명이 들어와서 매칭되었습니다.');
         match.AddOnMessageAll(Game,hash.makeHash('game number'+gameCount));
@@ -33,6 +35,7 @@ server.on('connection', (s) => {
         userCount = 0;
         Game = match.createMatch();
     }
+    */
 });
 
 server.on('error', (e) => {
