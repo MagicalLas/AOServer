@@ -32,7 +32,7 @@ server.on('connection', (s) => {
     const cc = userCount;
     s.on('data', (data) => {
         const list = data.toString().split('#');
-        console.log(list);
+        //console.log(list);
         const json = JSON.parse(list[0]);
         if (json.id == 0) {
             const jsondata = JSON.stringify(json);
@@ -47,6 +47,7 @@ server.on('connection', (s) => {
     });
     s.on('error',()=>{
         game = game.filter(x=x.id!==cc);
+        console.log(cc+"번째 소켓이 뒤졌습니다. 다행이 잘 초리 했을꺼에요");
     })
     
 
