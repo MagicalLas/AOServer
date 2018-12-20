@@ -19,5 +19,5 @@ describe('매칭 시스템', function() {
         room = room(socket1)(socket1)(socket1)(socket1)(socket1)(socket1);
         const sender = match.SendAll(room);
         sender('Data');
-    })
+    });
 });
