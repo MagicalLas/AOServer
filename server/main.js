@@ -31,7 +31,7 @@ server.on('connection', (s) => {
             const jsondata = JSON.stringify(json);
             so.Sender(jsondata);
         }
-        if(json.id){
+        if(json.id==1){
             const user = hash.makeHash(json.user_id);
             const jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
             const result = JSON.stringify({msg:jsondata});
