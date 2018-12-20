@@ -26,17 +26,21 @@ server.on('connection', (s) => {
     Game = Game(s);
     const so = message.SocketSend(s);
     s.on('data',(data)=>{
-        const json = JSON.parse(data);
-        if(json.id==0){
-            const jsondata = JSON.stringify(json);
-            so.Sender(jsondata);
-        }
-        if(json.id==1){
-            const user = hash.makeHash(json.user_id);
-            const jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
-            const result = JSON.stringify({msg:jsondata});
-            so.Sender(result);
-        }
+
+        const list = data.split('#');
+        list.forEach(el => {
+            const json = JSON.parse(el);
+            if(json.id==0){
+                const jsondata = JSON.stringify(json);
+                so.Sender(jsondata);
+            }
+            if(json.id==1){
+                const user = hash.makeHash(json.user_id);
+                const jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
+                const result = JSON.stringify({msg:jsondata});
+                so.Sender(result);
+            }            
+        });
     });
     
     userCount += 1;
