@@ -36,7 +36,6 @@ server.on('connection', (s) => {
         for (let ii = 0; ii < list.length-1; ii++) {
             try {
                 const json = JSON.parse(list[ii]);
-                console.log(cc+"  ::  "+list[ii]);
                 if (json.id == 0) {
                     const jsondata = JSON.stringify(json);
                     so.Sender(jsondata);
@@ -46,12 +45,10 @@ server.on('connection', (s) => {
                     var user = json.user_id;
                     var jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
                     var result = JSON.stringify({id:json.id ,msg: jsondata });
-                    console.log(json.id);
 
                     game.filter(x=>(x.id!==cc)).forEach(x=>{x.sender.Sender(result);console.log(cc+" -> "+x.id);});
                 }
             } catch (error) {
-
                 console.log('입력 데이터가 json이 아닙니다.'+error);
             }   
         }

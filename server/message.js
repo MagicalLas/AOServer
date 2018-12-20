@@ -1,7 +1,7 @@
 function SocketSend(socket) {
     function Sender(data) {
         socket.write("㏆" + data.length + "®" + data);
-        socket.push();
+        console.log(data);
     };
     return {Sender:Sender};
 }
