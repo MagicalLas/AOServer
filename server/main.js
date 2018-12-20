@@ -25,7 +25,7 @@ server.on('connection', (s) => {
     Game = Game(s);
     s.write('Wonho Las');
     userCount += 1;
-    /*
+    Game = match.createMatch();
     if (userCount == 2) {
         console.log('2명이 들어와서 매칭되었습니다.');
         match.AddOnMessageAll(Game,hash.makeHash('game number'+gameCount));
@@ -33,9 +33,7 @@ server.on('connection', (s) => {
         GameRoom[gameCount%10] = Game;
         gameCount += 1;
         userCount = 0;
-        Game = match.createMatch();
     }
-    */
 });
 
 server.on('error', (e) => {
