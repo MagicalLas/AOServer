@@ -27,8 +27,13 @@ server.on('connection', (s) => {
     const so = message.SocketSend(s);
     s.on('data',(data)=>{
         const json = JSON.parse(data);
-        if(json.id==0){    
+        if(json.id==0){
             const jsondata = JSON.stringify(json);
+            so.Sender(jsondata);
+        }
+        if(json.id){
+            const user = hash.makeHash(json.user_id);
+            const jsondata = JSON.stringify({user_id:user,x:json.x,y:json.y});
             so.Sender(jsondata);
         }
     });
