@@ -28,8 +28,10 @@ server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
     Game = Game(s);
     const so = message.SocketSend(s);
+    game.push({sender:so,id:userCount});
     s.on('data', (data) => {
-        game.push(so);
+        const cc = userCount;
+        game.push({socket:s,id:""});
         const list = data.toString().split('#');
         console.log(list);
         const json = JSON.parse(list[0]);
@@ -41,9 +43,7 @@ server.on('connection', (s) => {
             const user = hash.makeHash(json.user_id);
             const jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
             const result = JSON.stringify({id:json.id ,msg: jsondata });
-            game.forEach((x)=>{
-                x.Sender(result);
-            })
+            game.filter(x=>x.id!=cc).forEach(x=>x.sender(result));
         }
     });
     
