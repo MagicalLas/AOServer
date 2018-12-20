@@ -28,6 +28,7 @@ server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
     const so = message.SocketSend(s);
     game.push({sender:so,id:userCount});
+    game.forEach(x=>console.log(x.id));
     const cc = userCount;
     s.on('data', (data) => {
         const list = data.toString().split('#');
