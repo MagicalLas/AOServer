@@ -21,8 +21,9 @@ server.on('listening', () => {
     console.log("Server will Started");
 });
 
+
 var gamedata = {
-    game_id:game_id,
+    game_id:'asdlasd',
     name:{
         name:"player1",
         x:0,
