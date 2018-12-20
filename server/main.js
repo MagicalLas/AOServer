@@ -1,6 +1,7 @@
 const tcp = require('net');
 const match = require('./matching');
 const hash = require('./database/hash');
+const message = require('./message');
 
 const server = tcp.createServer(() => {
     console.log("user connected");
@@ -23,7 +24,8 @@ server.on('listening', () => {
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
     Game = Game(s);
-    s.write('Wonho Las');
+    const so = message.SocketSend(s);
+    so.Sender('{name:"Las Wonho"}');
     userCount += 1;
     Game = match.createMatch();
     /*
