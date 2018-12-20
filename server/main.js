@@ -27,7 +27,8 @@ server.on('connection', (s) => {
     const so = message.SocketSend(s);
     s.on('data',(data)=>{
 
-        const list = data.split('#');
+        const list = data.toString().split('#');
+
         list.forEach(el => {
             const json = JSON.parse(el);
             if(json.id==0){
