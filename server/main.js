@@ -30,6 +30,7 @@ server.on('connection', (s) => {
     game.push({sender:so,id:userCount});
     game.forEach(x=>console.log(x.id));
     const cc = userCount;
+    userCount += 1;
     s.on('data', (data) => {
         const list = data.toString().split('#');
         for (let ii = 0; ii < list.length-1; ii++) {
@@ -79,7 +80,6 @@ server.on('connection', (s) => {
         userCount = 0;
     }
     */
-    userCount += 1;
 });
 
 server.on('error', (e) => {
