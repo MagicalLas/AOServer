@@ -50,7 +50,7 @@ server.on('connection', (s) => {
                     var user = json.user_id;
                     var jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
                     var result = JSON.stringify({ id: json.id, msg: jsondata });
-                    game.filter(x => x.id !== cc).map(x => { return { sender: x.sender, id: cc, data:result} });
+                    game.filter(x => x.id == cc).map(x => { return { sender: x.sender, id: cc, data:result} });
                 }
             } catch (error) {
                 console.log('입력 데이터가 json이 아닙니다.'+error);
