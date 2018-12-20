@@ -26,7 +26,6 @@ var game = new Array();
 
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
-    Game = Game(s);
     const so = message.SocketSend(s);
     game.push({sender:so,id:userCount});
     const cc = userCount;
@@ -57,6 +56,7 @@ server.on('connection', (s) => {
     })
     
     /*
+    Game = Game(s);
     Game = match.createMatch();
     if (userCount == 2) {
         console.log('2명이 들어와서 매칭되었습니다.');
