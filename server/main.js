@@ -28,7 +28,7 @@ server.on('connection', (s) => {
     s.on('data',(data)=>{
         const json = JSON.parse(data);
         if(json.id==0){    
-            const jsondata = JSON.stringify(json.msg);
+            const jsondata = JSON.stringify(json);
             so.Sender(jsondata);
         }
     });
