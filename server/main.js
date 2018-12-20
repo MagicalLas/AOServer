@@ -21,17 +21,20 @@ server.on('listening', () => {
     console.log("Server will Started");
 });
 
+id, msg
 
-var gamedata = {
-    game_id:'asdlasd',
-    name:'las'
-};
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
     Game = Game(s);
     const so = message.SocketSend(s);
-    const data = JSON.stringify(gamedata);
-    so.Sender(data);
+    s.on('data',(data)=>{
+        const json = JSON.parse(data);
+        if(json.id==0){    
+            const jsondata = JSON.stringify(json.msg);
+            so.Sender(jsondata);
+        }
+    });
+    
     userCount += 1;
     Game = match.createMatch();
     /*
