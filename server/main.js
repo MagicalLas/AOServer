@@ -31,7 +31,6 @@ server.on('connection', (s) => {
     game.push({sender:so,id:userCount});
     s.on('data', (data) => {
         const cc = userCount;
-        game.push({socket:s,id:""});
         const list = data.toString().split('#');
         console.log(list);
         const json = JSON.parse(list[0]);
