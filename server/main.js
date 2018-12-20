@@ -24,16 +24,7 @@ server.on('listening', () => {
 
 var gamedata = {
     game_id:'asdlasd',
-    name:{
-        name:"player1",
-        x:0,
-        y:0
-    },
-    user2:{
-        name:"player2",
-        x:0,
-        y:0
-    }
+    name:'las'
 };
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
