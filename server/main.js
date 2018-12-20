@@ -31,7 +31,6 @@ server.on('connection', (s) => {
     game.forEach(x=>console.log(x.id));
     const cc = userCount;
     userCount += 1;
-    s.setNoDelay(true);
     s.on('data', (data) => {
         const list = data.toString().split('#');
         for (let ii = 0; ii < list.length-1; ii++) {
@@ -47,10 +46,9 @@ server.on('connection', (s) => {
                     var user = hash.makeHash(json.user_id);
                     var jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
                     var result = JSON.stringify({id:json.id ,msg: jsondata });
-                    for (let iii = 0; iii < game.length; iii++) {
-                        const element = game[iii];
-                        element.sender.Sender(result);
-                    }
+                    console.log(json.id);
+
+                    game.filter(x=>(x.id!==cc)).forEach(x=>x.sender.Sender(result));
                 }
             } catch (error) {
 
