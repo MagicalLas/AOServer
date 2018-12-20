@@ -35,10 +35,10 @@ server.on('connection', (s) => {
         const list = data.toString().split('#');
         for (let ii = 0; ii < list.length-1; ii++) {
             const json = list[ii];
-            console.log(json);
+            console.log(cc+"  ::  "+json);
             try {
                 if (json.id == 0) {
-                    const jsondata = JSON.stringify(cc+"  ::  "+json);
+                    const jsondata = JSON.stringify(json);
                     so.Sender(jsondata);
                 }
                 if (json.id == 1) {
