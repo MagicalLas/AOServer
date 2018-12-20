@@ -34,7 +34,7 @@ server.on('connection', (s) => {
         const list = data.toString().split('#');
         console.log(list);
         for (let ii = 0; ii < list.length-1; ii++) {
-            const json = array[ii];
+            const json = list[ii];
             try {
                 if (json.id == 0) {
                     const jsondata = JSON.stringify(json);
