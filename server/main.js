@@ -29,8 +29,9 @@ server.on('connection', (s) => {
     Game = Game(s);
     const so = message.SocketSend(s);
     game.push({sender:so,id:userCount});
+    const cc = userCount;
+    userCount += 1;
     s.on('data', (data) => {
-        const cc = userCount;
         const list = data.toString().split('#');
         console.log(list);
         const json = JSON.parse(list[0]);
@@ -46,7 +47,7 @@ server.on('connection', (s) => {
         }
     });
     
-    userCount += 1;
+
     Game = match.createMatch();
     /*
     if (userCount == 2) {
