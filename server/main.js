@@ -32,9 +32,10 @@ function sleep(millis) {
     if(user_position.length == 0){
     }
     else{
-        user_position.shift().array.forEach(x=>{x.sender.Sender(result);});
+        const commit = user_position.shift();
+        
+        commit.array.forEach(x=>{x.sender.Sender(commit.data);});
     }
-    sleep(100);
 }()
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
