@@ -39,6 +39,7 @@ function Game() {
 
             }
             else{
+                console.log('moving');
                 lsocket.Raw_send(data);
             }
         });
@@ -83,7 +84,6 @@ server.on('connection',(socket)=>{
         }
         if(one.id==1){
             const moving_data = process_moving_data(data);
-            console.log('moving data send');
             game.Raw_send_all(rsocket,moving_data);
         }
     });
