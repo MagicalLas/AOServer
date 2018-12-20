@@ -23,7 +23,7 @@ server.on('listening', () => {
 
 var gamedata = {
     game_id:game_id,
-    user1:{
+    name:{
         name:"player1",
         x:0,
         y:0
