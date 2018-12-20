@@ -32,7 +32,7 @@ function sleep(millis) {
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
     const so = message.SocketSend(s);
-    game.push({sender:so,id:userCount});
+    game.push({sender:so,id:userCount,data:''});
     game.forEach(x=>console.log(x.id));
     const cc = userCount;
     userCount += 1;
@@ -49,8 +49,8 @@ server.on('connection', (s) => {
                 if (json.id == 1) {
                     var user = json.user_id;
                     var jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
-                    var result = JSON.stringify({id:json.id ,msg: jsondata });
-                    user_position.push({data:result,array:game.filter(x=>(x.id!==cc))});
+                    var result = JSON.stringify({ id: json.id, msg: jsondata });
+                    game.filter(x => x.id !== cc).map(x => { return { sender: x.sender, id: cc, data:result} });
                 }
             } catch (error) {
                 console.log('입력 데이터가 json이 아닙니다.'+error);
@@ -90,12 +90,9 @@ server.on('error', (e) => {
 
 !function step(){
     console.log('commit');
-    if(user_position.length == 0){
-    }
-    else{
-        const commit = user_position.shift();   
-        commit.array.forEach(x=>{x.sender.Sender(commit.data);});
-    }
+    game.forEach(element => {
+        game.filter(x=>x.id!==element.id).forEach(x=>element.sender.Sender(x.data));
+    });
     
     setTimeout(function() {
         step();
