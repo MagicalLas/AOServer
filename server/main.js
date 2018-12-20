@@ -46,13 +46,14 @@ server.on('connection', (s) => {
                     var user = hash.makeHash(json.user_id);
                     var jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
                     var result = JSON.stringify({id:json.id ,msg: jsondata });
-                    console.log(json.id);
-
                     for (let iii = 0; iii < game.length; iii++) {
                         const element = game[iii];
-                        if(element.id == cc)
-                        continue;
+                        if(element.id == cc){
+                            console.log('same');
+                            continue;
+                        }
                         else{
+                            console.log(json.id+"->");
                             element.sender.Sender(result);
                         }
                     }
