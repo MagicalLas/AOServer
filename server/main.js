@@ -33,7 +33,8 @@ server.on('connection', (s) => {
     s.on('data', (data) => {
         const list = data.toString().split('#');
         console.log(list);
-        list.forEach(json => {
+        for (let ii = 0; ii < list.length-1; ii++) {
+            const json = array[ii];
             try {
                 if (json.id == 0) {
                     const jsondata = JSON.stringify(json);
@@ -49,9 +50,8 @@ server.on('connection', (s) => {
                 }
             } catch (error) {
                 console.log('입력 데이터가 json이 아닙니다.');
-            }
-
-        });
+            }   
+        }
     });
     s.on('error',()=>{
         game = game.filter(x=>x.id!==cc);
