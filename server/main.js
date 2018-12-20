@@ -33,7 +33,7 @@ server.on('connection', (s) => {
         }
         if(json.id){
             const user = hash.makeHash(json.user_id);
-            const jsondata = JSON.stringify({user_id:user,x:json.x,y:json.y});
+            const jsondata = JSON.stringify({user_id:user,x:json.x,y:json.y,type:json.type});
             so.Sender(jsondata);
         }
     });
