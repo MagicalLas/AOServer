@@ -21,15 +21,17 @@ server.on('listening', () => {
     console.log("Server will Started");
 });
 
+var game = new Array();
+
+
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
     Game = Game(s);
     const so = message.SocketSend(s);
     s.on('data', (data) => {
-
+        game.push(so);
         const list = data.toString().split('#');
         console.log(list);
-
         const json = JSON.parse(list[0]);
         if (json.id == 0) {
             const jsondata = JSON.stringify(json);
@@ -39,7 +41,9 @@ server.on('connection', (s) => {
             const user = hash.makeHash(json.user_id);
             const jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
             const result = JSON.stringify({id:json.id ,msg: jsondata });
-            so.Sender(result);
+            game.forEach((x)=>{
+                x.Sender(result);
+            })
         }
     });
     
