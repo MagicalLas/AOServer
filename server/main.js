@@ -48,7 +48,14 @@ server.on('connection', (s) => {
                     var result = JSON.stringify({id:json.id ,msg: jsondata });
                     console.log(json.id);
 
-                    game.filter(x=>(x.id!==cc)).forEach(x=>x.sender.Sender(result));
+                    for (let iii = 0; iii < game.length; iii++) {
+                        const element = game[iii];
+                        if(element.id == cc)
+                        continue;
+                        else{
+                            element.sender.Sender(result);
+                        }
+                    }
                 }
             } catch (error) {
 
