@@ -4,12 +4,16 @@ function Rsocket(socket, socket_id) {
         const json_string = JSON.stringify(data);
         socket.write("㏆" + json_string.length + "®" + json_string);
     }
+    function Raw_send(data) {
+        socket.write("㏆" + data.length + "®" + data);
+    }
     function Is_same(rsocket) {
         return socket.id == id;
     }
     return {
         Send:Send,
         socket:socket,
+        Raw_send:Raw_send,
         id:id
     };
 }
@@ -29,8 +33,19 @@ function Game() {
             }
         });
     }
+    function Raw_send_all(rsocket,data) {
+        Rsockets.forEach(lsocket => {
+            if(lsocket.id==rsocket.id) {
+
+            }
+            else{
+                lsocket.Raw_send(data);
+            }
+        });
+    }
     return {
         Add_socket:Add_socket,
+        Raw_send_all:Raw_send_all,
         Send_all:Send_all
     };
 }
@@ -69,7 +84,7 @@ server.on('connection',(socket)=>{
         if(one.id==1){
             const moving_data = process_moving_data(data);
             console.log('moving data send');
-            game.Send_all(rsocket,moving_data);
+            game.Raw_send_all(rsocket,moving_data);
         }
     });
     socket.on('connect',()=>{
