@@ -49,14 +49,7 @@ server.on('connection', (s) => {
                     var result = JSON.stringify({id:json.id ,msg: jsondata });
                     for (let iii = 0; iii < game.length; iii++) {
                         const element = game[iii];
-                        if(element.id != cc){
-                            console.log('same');
-                            continue;
-                        }
-                        else{
-                            console.log(json.id+"->");
-                            element.sender.Sender(result);
-                        }
+                        element.sender.Sender(result);
                     }
                 }
             } catch (error) {
