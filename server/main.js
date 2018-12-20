@@ -44,7 +44,6 @@ server.on('connection', (s) => {
                 if (json.id == 0) {
                     const jsondata = JSON.stringify(json);
                     so.Sender(jsondata);
-                
                 }
                 if (json.id == 1) {
                     var user = json.user_id;
@@ -91,7 +90,7 @@ server.on('error', (e) => {
 !function step(){
     console.log('commit');
     game.forEach(element => {
-        game.filter(x=>x.id!==element.id).forEach(x=>element.sender.Sender(x.data));
+        game.filter(x=>x.id!==element.id).forEach(x=>{element.sender.Sender(x.data);console.log(x.data);});
     });
     
     setTimeout(function() {
