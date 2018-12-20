@@ -68,6 +68,7 @@ server.on('connection',(socket)=>{
         }
         if(one.id==1){
             const moving_data = process_moving_data(data);
+            console.log('moving data send');
             game.Send_all(rsocket,moving_data);
         }
     });
