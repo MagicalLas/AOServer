@@ -43,12 +43,12 @@ server.on('connection', (s) => {
                 }
 
                 if (json.id == 1) {
-                    var user = hash.makeHash(json.user_id);
+                    var user = json.user_id;
                     var jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
                     var result = JSON.stringify({id:json.id ,msg: jsondata });
                     console.log(json.id);
 
-                    game.filter(x=>(x.id!==cc)).forEach(x=>x.sender.Sender(result));
+                    game.filter(x=>(x.id!==cc)).forEach(x=>{x.sender.Sender(result);console.log("id is "+x.id);});
                 }
             } catch (error) {
 
