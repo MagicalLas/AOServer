@@ -34,14 +34,14 @@ server.on('connection', (s) => {
     s.on('data', (data) => {
         const list = data.toString().split('#');
         for (let ii = 0; ii < list.length-1; ii++) {
-            const json = list[ii];
+            const json = JSON.parse(list[ii]);
             console.log(cc+"  ::  "+json);
             try {
                 if (json.id == 0) {
                     const jsondata = JSON.stringify(json);
                     so.Sender(jsondata);
                 }
-                else {
+                if (json.id == 1) {
 
                     const user = hash.makeHash(json.user_id);
                     const jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
