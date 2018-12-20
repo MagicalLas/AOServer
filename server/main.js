@@ -32,6 +32,7 @@ server.on('connection', (s) => {
     const cc = userCount;
     s.on('data', (data) => {
         const list = data.toString().split('#');
+        console.log(list);
         list.forEach(json => {
             try {
                 if (json.id == 0) {
@@ -39,7 +40,7 @@ server.on('connection', (s) => {
                     so.Sender(jsondata);
                 }
                 if (json.id == 1) {
-                    console.log(json);
+
                     const user = hash.makeHash(json.user_id);
                     const jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
                     const result = JSON.stringify({id:json.id ,msg: jsondata });
