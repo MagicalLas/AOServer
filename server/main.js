@@ -49,7 +49,7 @@ server.on('connection', (s) => {
                     var result = JSON.stringify({id:json.id ,msg: jsondata });
                     for (let iii = 0; iii < game.length; iii++) {
                         const element = game[iii];
-                        if(element.id == cc){
+                        if(element.id != cc){
                             console.log('same');
                             continue;
                         }
