@@ -29,6 +29,7 @@ function sleep(millis) {
     return new Promise(resolve => setTimeout(resolve, millis));
 }
 !function step(){
+    console.log('commit');
     if(user_position.length == 0){
     }
     else{
