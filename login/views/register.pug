@@ -1,6 +1,22 @@
-extends layout
-
-block content
-    h1= title
-    p Welcome to #{title}
-    p Las Wonho is Rester
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        |
+        title Register
+    |
+    body
+        h1 Register
+        |
+        form(action='/register', method='post')
+            | Name :
+            input(type='text', name='register_name')
+            br
+            | Id :
+            input(type='text', name='register_id')
+            br
+            | Password :
+            input(type='text', name='register_password')
+            br
+            |
+            input(type='submit')
