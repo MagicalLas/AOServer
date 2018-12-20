@@ -34,7 +34,7 @@ function sleep(millis) {
     else{
         user_position.shift().array.forEach(x=>{x.sender.Sender(result);});
     }
-    sleep(1000/10);
+    sleep(100);
 }()
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
