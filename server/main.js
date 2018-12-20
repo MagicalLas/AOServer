@@ -42,7 +42,7 @@ server.on('connection', (s) => {
             const user = hash.makeHash(json.user_id);
             const jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
             const result = JSON.stringify({id:json.id ,msg: jsondata });
-            game.filter(x=>x.id!=cc).forEach(x=>x.sender.Sender(result));
+            game.filter(x=>(x.id!==cc)).forEach(x=>x.sender.Sender(result));
         }
     });
     
