@@ -28,16 +28,7 @@ var user_position = new Array();
 function sleep(millis) {
     return new Promise(resolve => setTimeout(resolve, millis));
 }
-!function step(){
-    console.log('commit');
-    if(user_position.length == 0){
-    }
-    else{
-        const commit = user_position.shift();
-        
-        commit.array.forEach(x=>{x.sender.Sender(commit.data);});
-    }
-}()
+
 server.on('connection', (s) => {
     console.log("Socket ip is " + s.address().address);
     const so = message.SocketSend(s);
@@ -95,3 +86,19 @@ server.on('connection', (s) => {
 server.on('error', (e) => {
     console.log(e);
 });
+
+
+!function step(){
+    console.log('commit');
+    if(user_position.length == 0){
+    }
+    else{
+        const commit = user_position.shift();   
+        commit.array.forEach(x=>{x.sender.Sender(commit.data);});
+    }
+    
+    setTimeout(function() {
+        step();
+    }, 100);
+    
+}()
