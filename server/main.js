@@ -43,6 +43,7 @@ server.on('connection', (s) => {
                     const user = hash.makeHash(json.user_id);
                     const jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
                     const result = JSON.stringify({id:json.id ,msg: jsondata });
+
                     game.filter(x=>(x.id!==cc)).forEach(x=>x.sender.Sender(result));
                 }
             } catch (error) {
@@ -54,8 +55,15 @@ server.on('connection', (s) => {
     s.on('error',()=>{
         game = game.filter(x=>x.id!==cc);
         console.log(cc+"번째 소켓이 뒤졌습니다. 다행이 잘 초리 했을꺼에요");
-    })
-    
+    });
+    s.on('close',()=>{
+        game = game.filter(x=>x.id!==cc);
+        console.log(cc+"번째 소켓이 닫혔습니다. 다행이 잘 초리 했을꺼에요");
+    });
+    s.on('end',()=>{
+        game = game.filter(x=>x.id!==cc);
+        console.log(cc+"번째 소켓이 끝났습니다. 다행이 잘 초리 했을꺼에요");
+    });
     /*
     Game = Game(s);
     Game = match.createMatch();
