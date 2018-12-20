@@ -33,26 +33,31 @@ server.on('connection', (s) => {
     s.on('data', (data) => {
         const list = data.toString().split('#');
         //console.log(list);
-        const json = JSON.parse(list[0]);
-        if (json.id == 0) {
-            const jsondata = JSON.stringify(json);
-            so.Sender(jsondata);
-        }
-        if (json.id == 1) {
-            const user = hash.makeHash(json.user_id);
-            const jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
-            const result = JSON.stringify({id:json.id ,msg: jsondata });
-            game.filter(x=>(x.id!==cc)).forEach(x=>x.sender.Sender(result));
-        }
+        list.forEach(json => {
+            try {
+                if (json.id == 0) {
+                    const jsondata = JSON.stringify(json);
+                    so.Sender(jsondata);
+                }
+                if (json.id == 1) {
+                    const user = hash.makeHash(json.user_id);
+                    const jsondata = JSON.stringify({ user_id: user, x: json.x, y: json.y, z: json.z, type: json.type });
+                    const result = JSON.stringify({id:json.id ,msg: jsondata });
+                    game.filter(x=>(x.id!==cc)).forEach(x=>x.sender.Sender(result));
+                }
+            } catch (error) {
+                console.log('입력 데이터가 json이 아닙니다.');
+            }
+
+        });
     });
     s.on('error',()=>{
         game = game.filter(x=>x.id!==cc);
         console.log(cc+"번째 소켓이 뒤졌습니다. 다행이 잘 초리 했을꺼에요");
     })
     
-
-    Game = match.createMatch();
     /*
+    Game = match.createMatch();
     if (userCount == 2) {
         console.log('2명이 들어와서 매칭되었습니다.');
         match.AddOnMessageAll(Game,hash.makeHash('game number'+gameCount));
