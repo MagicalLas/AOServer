@@ -58,20 +58,19 @@ function Game() {
         });
     }
     function Sending() {
-        var b = Date.now();
-        console.log(b-a);
-        a = b;
-        Rsockets.forEach(lsocket => {
-            var data = "";
+        for (let ii = 0; ii < Rsockets.length; ii++) {
+            const lsocket = Rsockets[ii];
             for (let i = 0; i < Moving.length; i++) {
                 const element = Moving[i];
                 if(i==lsocket.id){}
                 else{
                     lsocket.Raw_send(element);
                 }
-            }
-
-        });
+            }            
+        }
+        var b = Date.now();
+        console.log(b-a);
+        a = b;
         setTimeout(()=>{Sending()},10);
     }
     return {
