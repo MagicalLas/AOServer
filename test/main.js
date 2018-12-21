@@ -90,8 +90,9 @@ server.on('connection', (socket) => {
     const rsocket = Rsocket(socket, user_count);
     game.Add_socket(rsocket);
     socket.setNoDelay(false);
+    const count = user_count;
+
     socket.on('data', (data) => {
-        const count = user_count;
         const list = data.toString().split('#');
         console.log(list.length)
         for (let i = 0; i < list.length - 1; i++) {
