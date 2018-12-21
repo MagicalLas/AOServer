@@ -75,6 +75,7 @@ var game = Game();
 server.on('connection',(socket)=>{
     console.log('유저 접속');
     const rsocket = Rsocket(socket,user_count);
+    user_count+=1;
     game.Add_socket(rsocket);
     socket.on('data',(data)=>{
         const list = data.toString().split('#');
@@ -86,7 +87,6 @@ server.on('connection',(socket)=>{
             const moving_data = process_moving_data(data);
             game.Raw_send_all(rsocket,moving_data);
         }
-        user_count+=1;
     });
     socket.on('connect',()=>{
         console.log('소켓 연결되었습니다.');
