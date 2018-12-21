@@ -1,3 +1,11 @@
+if (!Date.now) {
+    Date.now = function now() {
+      return new Date().getTime();
+    };
+  }
+
+
+
 function Rsocket(socket, socket_id) {
     const id = socket_id;
     function Send(data) {
@@ -33,6 +41,9 @@ function Game() {
             }
         });
     }
+    function Delete_socket(rsocket) {
+        Rsockets = Rsockets.filter(x=>x.id!==rsocket.id);
+    }
     function Raw_send_all(rsocket,data) {
         Rsockets.forEach(lsocket => {
             if(lsocket.id==rsocket.id) {
@@ -45,6 +56,7 @@ function Game() {
         });
     }
     return {
+        Delete_socket:Delete_socket,
         Add_socket:Add_socket,
         Raw_send_all:Raw_send_all,
         Send_all:Send_all
@@ -79,6 +91,7 @@ server.on('connection',(socket)=>{
     game.Add_socket(rsocket);
     socket.on('data',(data)=>{
         const list = data.toString().split('#');
+        console.log(list.length)
         for (let i = 0; i < list.length-1; i++) {
             const element = list[i];
             const one = JSON.parse(element);
@@ -95,9 +108,11 @@ server.on('connection',(socket)=>{
         console.log('소켓 연결되었습니다.');
     });
     socket.on('end',()=>{
+        game.Delete_socket(rsocket);
         console.log('소켓 끝났습니다.');
     });
     socket.on('error',()=>{
+        game.Delete_socket(rsocket);
         console.log('소켓에서 에러가 발생했습니다.');
     });
     socket.on('timeout',()=>{
@@ -106,7 +121,10 @@ server.on('connection',(socket)=>{
 });
 
 function process_moving_data(json) {
+    const a = Date.now();
     var jsondata = JSON.stringify({ user_id: json.user_id, x: json.x, y: json.y, z: json.z, type: json.type });
     var result = JSON.stringify({ id: json.id, msg: jsondata });
+    const b = Date.now();
+    console.log(b-a);
     return result;
 }
