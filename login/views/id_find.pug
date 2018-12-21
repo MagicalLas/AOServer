@@ -1,0 +1,19 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        |
+        title Register
+    |
+    body
+        h1 Register
+        |
+        form(action='/id_find', method='post')
+            | Name :
+            input(type='text', name='id_find_name')
+            br
+            | Email :
+            input(type='text', name='id_find_email')
+            br
+            |
+            input(type='submit')

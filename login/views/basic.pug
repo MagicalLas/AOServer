@@ -6,16 +6,30 @@ html
         style.
             .login {
                 width: 49%;
-                height: 99vh;
+                height: 49vh;
                 font-size: 99px;
             }
             .register {
                 width: 49%;
-                height: 99vh;
+                height: 49vh;
                 font-size: 99px;
             }
-    body
+            .id_find {
+                width: 49%;
+                height: 49vh;
+                font-size: 99px;
+            }
+            .password_find {
+                width: 49%;
+                height: 49vh;
+                font-size: 99px;
+            }
+body
         button.login(onclick="location.href='/login'")
             | 로그인
         button.register(onclick="location.href='/register'")
             | 회원가입
+        button.id_find(onclick="location.href='/id_find'")
+            | 아이디 찾기
+        button.password_find(onclick="location.href='/password_find'")
+            | 비밀번호 찾기

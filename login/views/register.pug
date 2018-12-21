@@ -4,19 +4,37 @@ html
         meta(charset='utf-8')
         |
         title Register
+        script(type='text/javascript').
+            function check() {
+                var UP = confirm("아이디를 삭제하시겠습니까?");
+                if(UP)
+                    document.write("<h1>삭제 완료.</h1>");
+                else
+                    document.write("<h1>삭제 취소.</h1>");
+
+                var email = document.getElementById("email").value;
+                var exptext = /^[A-Za-z0-9_\\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+                if (exptext.test(email) === false)
+                    alert("이 메일형식이 올바르지 않습니다.");
+                else
+                    alert(email);
+            }
     |
     body
         h1 Register
         |
-        form(action='/register', method='post')
+        form(action='/register', method='post', onsubmit = 'check();')
             | Name :
             input(type='text', name='register_name')
             br
-            | Id :
+            | ID :
             input(type='text', name='register_id')
             br
             | Password :
             input(type='text', name='register_password')
             br
+            | Email :
+            input#email(type='text', name='email')
+            br
             |
-            input(type='submit')
+            input(type='submit', value='submit')

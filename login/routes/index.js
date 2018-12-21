@@ -22,6 +22,15 @@ router.get('/login', function(req,res){
 router.get('/register', function(req,res){
     res.render('register.pug');
 });
+router.get('/account_management', function(req,res){
+    res.render('account_management.pug');
+});
+router.get('/id_find', function(req,res){
+    res.render('id_find.pug');
+});
+router.get('/password_find', function(req,res){
+    res.render('password_find.pug');
+});
 
 router.post('/login', async function(req,res){
     const body = req.body;
