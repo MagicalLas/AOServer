@@ -58,6 +58,9 @@ function Game() {
         });
     }
     function Sending() {
+        var b = Date.now();
+        console.log(b-a);
+        a = b;
         Rsockets.forEach(lsocket => {
             var data = "";
             for (let i = 0; i < Moving.length; i++) {
@@ -111,9 +114,7 @@ server.on('connection', (socket) => {
     const count = user_count;
 
     socket.on('data', (data) => {
-        var b = Date.now();
-        console.log(b-a);
-        a = b;
+
         //console.log('count is '+count);
         const list = data.toString().split('#');
         for (let i = 0; i < list.length - 1; i++) {
