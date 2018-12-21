@@ -79,13 +79,16 @@ server.on('connection',(socket)=>{
     game.Add_socket(rsocket);
     socket.on('data',(data)=>{
         const list = data.toString().split('#');
-        const one = JSON.parse(list[0]);
-        if(one.id==0){
-            rsocket.Send(one);
-        }
-        if(one.id==1){
-            const moving_data = process_moving_data(one);
-            game.Raw_send_all(rsocket,moving_data);
+        for (let i = 0; i < list.length-1; i++) {
+            const element = list[i];
+            const one = JSON.parse(element);
+            if(one.id==0){
+                rsocket.Send(one);
+            }
+            if(one.id==1){
+                const moving_data = process_moving_data(one);
+                game.Raw_send_all(rsocket,moving_data);
+            }   
         }
     });
     socket.on('connect',()=>{
