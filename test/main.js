@@ -52,15 +52,29 @@ function Game() {
 
             }
             else {
-                lsocket.Raw_send(data);
+//                lsocket.Raw_send(data);
             }
+            Sending();
+        });
+    }
+    function Sending() {
+        Rsockets.forEach(lsocket => {
+            var data = "";
+            Rsockets.forEach(rsocket => {
+                if(rsocket.id==lsocket.id){}
+                else{
+                    data+=Moving[rsocket.id];
+                }
+            }); 
+            lsocket.Raw_send(data);
         });
     }
     return {
         Delete_socket: Delete_socket,
         Add_socket: Add_socket,
         Raw_send_all: Raw_send_all,
-        Send_all: Send_all
+        Send_all: Send_all,
+        Sending:Sending
     };
 }
 
@@ -104,6 +118,7 @@ server.on('connection', (socket) => {
                 }
                 if (one.id == 1) {
                     const moving_data = process_moving_data(one);
+                    Moving[count] = moving_data;
                     console.log(count);
                     game.Raw_send_all(rsocket, moving_data);
                 }
