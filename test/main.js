@@ -106,6 +106,8 @@ server.on('connection', (socket) => {
                 if (one.id == 1) {
                     const moving_data = process_moving_data(one);
                     Moving[count]=moving_data;
+                    
+                    console.log(Moving[count]+" <-> "+ count);
                     game.Raw_send_all(rsocket, moving_data);
                 }
             } catch (error) {
