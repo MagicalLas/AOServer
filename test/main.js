@@ -94,6 +94,7 @@ server.on('connection', (socket) => {
     const rsocket = Rsocket(socket, user_count);
     user_count += 1;
     game.Add_socket(rsocket);
+    socket.setNoDelay(true);
     socket.on('data', (data) => {
 
         const list = data.toString().split('#');
@@ -101,7 +102,6 @@ server.on('connection', (socket) => {
         for (let i = 0; i < list.length - 1; i++) {
             const element = list[i];
             try {
-
                 const one = JSON.parse(element);
                 if (one.id == 0) {
                     rsocket.Send(one);
