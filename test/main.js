@@ -69,7 +69,7 @@ function Game() {
             console.log('data is '+ data);
             lsocket.Raw_send(data);
         });
-        setTimeout(()=>{Sending()},1000/30);
+        setTimeout(()=>{Sending()},300);
     }
     return {
         Delete_socket: Delete_socket,
