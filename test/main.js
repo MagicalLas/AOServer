@@ -45,6 +45,8 @@ function Game() {
         Rsockets = Rsockets.filter(x => x.id !== rsocket.id);
     }
     function Raw_send_all(rsocket, data) {
+        
+        const a = Date.now();
         Rsockets.forEach(lsocket => {
             if (lsocket.id == rsocket.id) {
 
@@ -54,6 +56,9 @@ function Game() {
                 lsocket.Raw_send(data);
             }
         });
+        
+        const b = Date.now();
+        console.log(b - a);
     }
     return {
         Delete_socket: Delete_socket,
@@ -91,22 +96,24 @@ server.on('connection', (socket) => {
     game.Add_socket(rsocket);
     socket.on('data', (data) => {
 
-        const a = Date.now();
         const list = data.toString().split('#');
         console.log(list.length)
         for (let i = 0; i < list.length - 1; i++) {
             const element = list[i];
-            const one = JSON.parse(element);
-            if (one.id == 0) {
-                rsocket.Send(one);
-            }
-            if (one.id == 1) {
-                const moving_data = process_moving_data(one);
-                game.Raw_send_all(rsocket, moving_data);
+            try {
+
+                const one = JSON.parse(element);
+                if (one.id == 0) {
+                    rsocket.Send(one);
+                }
+                if (one.id == 1) {
+                    const moving_data = process_moving_data(one);
+                    game.Raw_send_all(rsocket, moving_data);
+                }
+            } catch (error) {
+                console.log('JSON이 아닙니다.');
             }
         }
-        const b = Date.now();
-        console.log(b - a);
     });
     socket.on('connect', () => {
         console.log('소켓 연결되었습니다.');
