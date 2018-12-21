@@ -69,6 +69,7 @@ function Game() {
             console.log('data is '+ data);
             lsocket.Raw_send(data);
         });
+        setTimeout(()=>{Sending()},10);
     }
     return {
         Delete_socket: Delete_socket,
@@ -99,7 +100,7 @@ var Moving = new Array();
 
 var user_count = 0;
 var game = Game();
-
+game.Sending();
 server.on('connection', (socket) => {
     console.log('유저 접속');
     const rsocket = Rsocket(socket, user_count);
@@ -121,7 +122,7 @@ server.on('connection', (socket) => {
                 if (one.id == 1) {
                     const moving_data = process_moving_data(one);
                     Moving[count] = moving_data;
-                    game.Raw_send_all(rsocket, moving_data);
+                    //game.Raw_send_all(rsocket, moving_data);
                 }
             } catch (error) {
                 console.log('JSON이 아닙니다.');
