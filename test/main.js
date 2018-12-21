@@ -130,7 +130,7 @@ server.on('connection', (socket) => {
                     //game.Raw_send_all(rsocket, moving_data);
                 }
             } catch (error) {
-                console.log('JSON이 아닙니다.');
+                console.log('JSON이 아닙니다.'+element);
             }
         }
     });
