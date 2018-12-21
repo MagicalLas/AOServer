@@ -89,7 +89,6 @@ server.on('connection', (socket) => {
     console.log('유저 접속');
     const rsocket = Rsocket(socket, user_count);
     game.Add_socket(rsocket);
-    Moving[user_count]="";
     socket.setNoDelay(false);
     socket.on('data', (data) => {
         const count = user_count;
