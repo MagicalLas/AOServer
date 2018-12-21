@@ -63,9 +63,16 @@ function Game() {
             }
         });
     }
+    function Move(rsocket,moving_data) {
+        for (let i = 0; i < Rsockets.length; i++) {
+            const element = Rsockets[i];
+            Rsockets[i] = element.Move(moving_data);
+        }
+    }
     return {
         Delete_socket: Delete_socket,
         Add_socket: Add_socket,
+        Move:Move,
         Raw_send_all: Raw_send_all,
         Send_all: Send_all
     };
@@ -110,7 +117,7 @@ server.on('connection', (socket) => {
                 }
                 if (one.id == 1) {
                     const moving_data = process_moving_data(one);
-                    rsocket.Move(moving_data);
+                    game.Move(rsocket,moving_data);
                     game.Raw_send_all(rsocket, moving_data);
                 }
             } catch (error) {
