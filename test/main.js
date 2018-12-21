@@ -65,7 +65,8 @@ function Game() {
                 else{
                     data+=Moving[rsocket.id];
                 }
-            }); 
+            });
+            console.log('data is '+ data);
             lsocket.Raw_send(data);
         });
     }
@@ -107,6 +108,8 @@ server.on('connection', (socket) => {
     const count = user_count;
 
     socket.on('data', (data) => {
+        
+        console.log('count is '+count);
         const list = data.toString().split('#');
         for (let i = 0; i < list.length - 1; i++) {
             const element = list[i];
@@ -118,7 +121,6 @@ server.on('connection', (socket) => {
                 if (one.id == 1) {
                     const moving_data = process_moving_data(one);
                     Moving[count] = moving_data;
-                    console.log(count);
                     game.Raw_send_all(rsocket, moving_data);
                 }
             } catch (error) {
