@@ -84,7 +84,7 @@ server.on('connection',(socket)=>{
             rsocket.Send(one);
         }
         if(one.id==1){
-            const moving_data = process_moving_data(data);
+            const moving_data = process_moving_data(one);
             game.Raw_send_all(rsocket,moving_data);
         }
     });
