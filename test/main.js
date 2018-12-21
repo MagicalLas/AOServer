@@ -13,7 +13,13 @@ function Rsocket(socket, socket_id) {
         socket.write("㏆" + json_string.length + "®" + json_string);
     }
     function Raw_send(data) {
-        socket.write("㏆" + data.length + "®" + data);
+        const a = Date.now();
+        socket.write("㏆" + data.length + "®" + data,'utf-8',()=>{
+
+            const b = Date.now();
+            console.log(b - a);
+        });
+        
     }
     function Is_same(rsocket) {
         return socket.id == id;
@@ -46,19 +52,14 @@ function Game() {
     }
     function Raw_send_all(rsocket, data) {
         
-        const a = Date.now();
         Rsockets.forEach(lsocket => {
             if (lsocket.id == rsocket.id) {
 
             }
             else {
-                console.log(lsocket.id + "<<-" + rsocket.id + "\n" + data);
                 lsocket.Raw_send(data);
             }
         });
-        
-        const b = Date.now();
-        console.log(b - a);
     }
     return {
         Delete_socket: Delete_socket,
@@ -94,9 +95,8 @@ server.on('connection', (socket) => {
     const rsocket = Rsocket(socket, user_count);
     user_count += 1;
     game.Add_socket(rsocket);
-    socket.setNoDelay(true);
+    socket.setNoDelay(false);
     socket.on('data', (data) => {
-
         const list = data.toString().split('#');
         console.log(list.length)
         for (let i = 0; i < list.length - 1; i++) {
