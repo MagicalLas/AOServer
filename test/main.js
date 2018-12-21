@@ -8,7 +8,6 @@ if (!Date.now) {
 
 function Rsocket(socket, socket_id) {
     const id = socket_id;
-    var moving_data='';
     function Send(data) {
         const json_string = JSON.stringify(data);
         socket.write("㏆" + json_string.length + "®" + json_string);
@@ -20,15 +19,10 @@ function Rsocket(socket, socket_id) {
     function Is_same(rsocket) {
         return socket.id == id;
     }
-    function Move(data) {
-        moving_data = data;
-    }
     return {
         Send: Send,
         socket: socket,
         Raw_send: Raw_send,
-        Move:Move,
-        moving_data: moving_data,
         id: id
     };
 }
@@ -58,21 +52,14 @@ function Game() {
 
             }
             else {
-                console.log(lsocket.moving_data);
+                console.log(Moving[0]);
                 lsocket.Raw_send(data);
             }
         });
     }
-    function Move(rsocket,moving_data) {
-        for (let i = 0; i < Rsockets.length; i++) {
-            const element = Rsockets[i];
-            Rsockets[i] = element.Move(moving_data);
-        }
-    }
     return {
         Delete_socket: Delete_socket,
         Add_socket: Add_socket,
-        Move:Move,
         Raw_send_all: Raw_send_all,
         Send_all: Send_all
     };
@@ -93,7 +80,7 @@ server.on('listening', () => {
     console.log("서버 리스닝 시작");
 });
 
-
+var Moving = new Array();
 
 
 var user_count = 0;
@@ -102,10 +89,11 @@ var game = Game();
 server.on('connection', (socket) => {
     console.log('유저 접속');
     const rsocket = Rsocket(socket, user_count);
-    user_count += 1;
     game.Add_socket(rsocket);
+    Moving[user_count]="";
     socket.setNoDelay(false);
     socket.on('data', (data) => {
+        const count = user_count;
         const list = data.toString().split('#');
         console.log(list.length)
         for (let i = 0; i < list.length - 1; i++) {
@@ -117,7 +105,7 @@ server.on('connection', (socket) => {
                 }
                 if (one.id == 1) {
                     const moving_data = process_moving_data(one);
-                    game.Move(rsocket,moving_data);
+                    Moving[count]=moving_data;
                     game.Raw_send_all(rsocket, moving_data);
                 }
             } catch (error) {
@@ -125,6 +113,7 @@ server.on('connection', (socket) => {
             }
         }
     });
+    user_count += 1;
     socket.on('connect', () => {
         console.log('소켓 연결되었습니다.');
     });
