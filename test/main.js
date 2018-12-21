@@ -14,10 +14,9 @@ function Rsocket(socket, socket_id) {
     }
     function Raw_send(data) {
         var b = Date.now();
-        console.log(b-a);
+        console.log(b-a+"   ->  "+socket.);
         a = b;
-        socket.write("㏆" + data.length + "®" + data,'utf-8',()=>{
-        });
+        socket.write("㏆" + data.length + "®" + data,'utf-8');
     }
     function Is_same(rsocket) {
         return socket.id == id;
@@ -111,7 +110,6 @@ server.on('connection', (socket) => {
     game.Add_socket(rsocket);
     socket.setNoDelay(false);
     const count = user_count;
-
     socket.on('data', (data) => {
 
         const list = data.toString().split('#');
