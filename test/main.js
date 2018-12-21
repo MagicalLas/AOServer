@@ -101,6 +101,8 @@ var Moving = new Array();
 var user_count = 0;
 var game = Game();
 game.Sending();
+var a = Date.now();
+
 server.on('connection', (socket) => {
     console.log('유저 접속');
     const rsocket = Rsocket(socket, user_count);
@@ -109,7 +111,9 @@ server.on('connection', (socket) => {
     const count = user_count;
 
     socket.on('data', (data) => {
-        
+        var b = Date.now();
+        console.log(b-a);
+        a = b;
         //console.log('count is '+count);
         const list = data.toString().split('#');
         for (let i = 0; i < list.length - 1; i++) {
