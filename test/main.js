@@ -69,10 +69,9 @@ function Game() {
             }
 
         });
-        setTimeout(()=>{Sending()},600);
+        setTimeout(()=>{Sending()},300);
     }
     return {
-        array:Rsocket,
         Delete_socket: Delete_socket,
         Add_socket: Add_socket,
         Raw_send_all: Raw_send_all,
@@ -101,7 +100,7 @@ var Moving = new Array();
 
 var user_count = 0;
 var game = Game();
-//game.Sending();
+game.Sending();
 server.on('connection', (socket) => {
     console.log('유저 접속');
     const rsocket = Rsocket(socket, user_count);
@@ -123,11 +122,7 @@ server.on('connection', (socket) => {
                 if (one.id == 1) {
                     const moving_data = process_moving_data(one);
                     Moving[count] = moving_data;
-                    if(count==0&&game.array.length>1){
-                        game.array[1].Raw_send(moving_data);
-                    }else if(count==1&&game.array.length>1){
-                        game.array[0].Raw_send(moving_data);
-                    }
+                    //game.Raw_send_all(rsocket, moving_data);
                 }
             } catch (error) {
                 console.log('JSON이 아닙니다.');
