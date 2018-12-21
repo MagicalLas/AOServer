@@ -35,11 +35,11 @@ function Game() {
     }
     function Raw_send_all(rsocket,data) {
         Rsockets.forEach(lsocket => {
-            console.log(lsocket.id+"<<-"+rsocket.id);
             if(lsocket.id==rsocket.id) {
 
             }
             else{
+                console.log(lsocket.id+"<<-"+rsocket.id+"\n"+data);
                 lsocket.Raw_send(data);
             }
         });
