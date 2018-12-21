@@ -72,7 +72,7 @@ function Game() {
             }
 
         });
-        setTimeout(()=>{Sending()},20);
+        setTimeout(()=>{Sending()},10);
     }
     return {
         Delete_socket: Delete_socket,
@@ -115,11 +115,13 @@ server.on('connection', (socket) => {
 
     socket.on('data', (data) => {
 
-        //console.log('count is '+count);
         const list = data.toString().split('#');
         for (let i = 0; i < list.length; i++) {
             const element = list[i];
             try {
+                if(element==0){
+                    continue
+                }
                 const one = JSON.parse(element);
                 if (one.id == 0) {
                     rsocket.Send(one);
@@ -127,7 +129,6 @@ server.on('connection', (socket) => {
                 if (one.id == 1) {
                     const moving_data = process_moving_data(one);
                     Moving[count] = moving_data;
-                    //game.Raw_send_all(rsocket, moving_data);
                 }
             } catch (error) {
                 console.log('JSON이 아닙니다.'+element);
