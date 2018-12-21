@@ -66,6 +66,7 @@ function Game() {
                 const element = Moving[i];
                 if(i==lsocket.id){}
                 else{
+                    console.log('DATA is '+element);
                     lsocket.Raw_send(element);
                 }
             }            
