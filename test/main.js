@@ -13,6 +13,9 @@ function Rsocket(socket, socket_id) {
         socket.write("㏆" + json_string.length + "®" + json_string);
     }
     function Raw_send(data) {
+        var b = Date.now();
+        console.log(b-a);
+        a = b;
         socket.write("㏆" + data.length + "®" + data,'utf-8',()=>{
         });
     }
@@ -68,10 +71,7 @@ function Game() {
                 }
             }            
         }
-        var b = Date.now();
-        console.log(b-a);
-        a = b;
-        setTimeout(()=>{Sending()},20);
+        setTimeout(()=>{Sending()},5);
     }
     return {
         Delete_socket: Delete_socket,
