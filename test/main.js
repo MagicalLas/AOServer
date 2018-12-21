@@ -108,7 +108,6 @@ server.on('connection', (socket) => {
 
     socket.on('data', (data) => {
         const list = data.toString().split('#');
-        console.log(list.length)
         for (let i = 0; i < list.length - 1; i++) {
             const element = list[i];
             try {
