@@ -14,7 +14,7 @@ function Rsocket(socket, socket_id) {
     }
     function Raw_send(data) {
         var b = Date.now();
-        console.log(b-a+"   ->  ");
+        console.log(b-a+"   ->  "+data);
         a = b;
         socket.write("㏆" + data.length + "®" + data,'utf-8');
     }
