@@ -60,14 +60,14 @@ function Game() {
     function Sending() {
         Rsockets.forEach(lsocket => {
             var data = "";
-            Rsockets.forEach(rsocket => {
-                if(rsocket.id==lsocket.id){}
+            for (let i = 0; i < Moving.length; i++) {
+                const element = Moving[i];
+                if(i==lsocket.id){}
                 else{
-                    data+=Moving[rsocket.id];
+                    lsocket.Raw_send(element);
                 }
-            });
-            console.log('data is '+ data);
-            lsocket.Raw_send(data);
+            }
+
         });
         setTimeout(()=>{Sending()},300);
     }
