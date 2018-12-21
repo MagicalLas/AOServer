@@ -69,7 +69,7 @@ function Game() {
             }
 
         });
-        setTimeout(()=>{Sending()},300);
+        setTimeout(()=>{Sending()},600);
     }
     return {
         Delete_socket: Delete_socket,
