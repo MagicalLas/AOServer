@@ -117,7 +117,7 @@ server.on('connection', (socket) => {
 
         //console.log('count is '+count);
         const list = data.toString().split('#');
-        for (let i = 0; i < list.length - 1; i++) {
+        for (let i = 0; i < list.length; i++) {
             const element = list[i];
             try {
                 const one = JSON.parse(element);
