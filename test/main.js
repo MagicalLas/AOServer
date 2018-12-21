@@ -69,7 +69,7 @@ function Game() {
             console.log('data is '+ data);
             lsocket.Raw_send(data);
         });
-        setTimeout(()=>{Sending()},10);
+        setTimeout(()=>{Sending()},1000/30);
     }
     return {
         Delete_socket: Delete_socket,
@@ -110,7 +110,7 @@ server.on('connection', (socket) => {
 
     socket.on('data', (data) => {
         
-        console.log('count is '+count);
+        //console.log('count is '+count);
         const list = data.toString().split('#');
         for (let i = 0; i < list.length - 1; i++) {
             const element = list[i];
