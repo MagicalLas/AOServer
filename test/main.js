@@ -90,10 +90,10 @@ server.on('connection', (socket) => {
     console.log('유저 접속');
     const rsocket = Rsocket(socket, user_count);
     game.Add_socket(rsocket);
-    Moving[user_count]="";
     socket.setNoDelay(false);
     socket.on('data', (data) => {
         const count = user_count;
+        const cc= count;
         const list = data.toString().split('#');
         console.log(list.length)
         for (let i = 0; i < list.length - 1; i++) {
@@ -105,9 +105,9 @@ server.on('connection', (socket) => {
                 }
                 if (one.id == 1) {
                     const moving_data = process_moving_data(one);
-                    Moving[count]=moving_data;
+                    Moving[cc]=moving_data;
                     
-                    console.log(Moving[count]+" <-> "+ count);
+                    console.log(Moving[cc]+" <-> "+ cc);
                     game.Raw_send_all(rsocket, moving_data);
                 }
             } catch (error) {
