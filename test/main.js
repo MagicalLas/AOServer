@@ -86,6 +86,7 @@ server.on('connection',(socket)=>{
             const moving_data = process_moving_data(data);
             game.Raw_send_all(rsocket,moving_data);
         }
+        user_count+=1;
     });
     socket.on('connect',()=>{
         console.log('소켓 연결되었습니다.');
