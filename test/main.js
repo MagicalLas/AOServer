@@ -8,26 +8,27 @@ if (!Date.now) {
 
 function Rsocket(socket, socket_id) {
     const id = socket_id;
+    var moving_data='';
     function Send(data) {
         const json_string = JSON.stringify(data);
         socket.write("㏆" + json_string.length + "®" + json_string);
     }
     function Raw_send(data) {
-        const a = Date.now();
         socket.write("㏆" + data.length + "®" + data,'utf-8',()=>{
-
-            const b = Date.now();
-            console.log(b - a);
         });
-        
     }
     function Is_same(rsocket) {
         return socket.id == id;
+    }
+    function Move(data) {
+        moving_data = data;
     }
     return {
         Send: Send,
         socket: socket,
         Raw_send: Raw_send,
+        Move:Move,
+        moving_data: moving_data,
         id: id
     };
 }
@@ -57,6 +58,7 @@ function Game() {
 
             }
             else {
+                console.log(lsocket.moving_data);
                 lsocket.Raw_send(data);
             }
         });
@@ -108,6 +110,7 @@ server.on('connection', (socket) => {
                 }
                 if (one.id == 1) {
                     const moving_data = process_moving_data(one);
+                    rsocket.Move(moving_data);
                     game.Raw_send_all(rsocket, moving_data);
                 }
             } catch (error) {
